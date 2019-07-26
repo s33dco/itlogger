@@ -1,12 +1,4 @@
 {
-  "logs": [
-    {
-      "message": "Go to city dump",
-      "attention": true,
-      "tech": "George Harrision",
-      "date": "2019-07-26T11:12:02.039Z",
-      "id": 1
-    }
-  ],
+  "logs": [],
   "techs": []
 }
