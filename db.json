@@ -1,49 +1,12 @@
 {
-	"logs": [
-		{
-			"id": 1,
-			"message": "laptop 12383 broke",
-			"attention": true,
-			"date": "03-02-2019",
-			"tech": "John Lennon"
-		},
-		{
-			"id": 2,
-			"message": "work station 3w83 broke",
-			"attention": true,
-			"date": "03-02-2019",
-			"tech": "George Harrison"
-		},
-		{
-			"id": 3,
-			"message": "printer 94784c broke",
-			"attention": true,
-			"date": "03-02-2019",
-			"tech": "Ringo Starr"
-		},
-		{
-			"id": 4,
-			"message": "printer 94784c fixed",
-			"attention": false,
-			"date": "03-02-2019",
-			"tech": "Ringo Starr"
-		}
-	],
-	"techs": [
-		{
-			"id": 1,
-			"firstName": "John",
-			"lastName": "Lennon"
-		},
-		{
-			"id": 2,
-			"firstName": "George",
-			"lastName": "Harrison"
-		},
-		{
-			"id": 3,
-			"firstName": "Ringo",
-			"lastName": "Starr"
-		}
-	]
+  "logs": [
+    {
+      "message": "Go to city dump",
+      "attention": true,
+      "tech": "George Harrision",
+      "date": "2019-07-26T11:12:02.039Z",
+      "id": 1
+    }
+  ],
+  "techs": []
 }

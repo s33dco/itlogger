@@ -34,7 +34,8 @@ const Logs = ({ log: { logs, loading }, getLogs }) => {
 };
 
 Logs.propTypes = {
-	log: PropTypes.object.isRequired
+	log: PropTypes.object.isRequired,
+	getLogs: PropTypes.func.isRequired
 };
 
 // below bringing in whole state and then destructuring when passing in as props
