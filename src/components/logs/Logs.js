@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux'; // import to compoent if need to interact with redux
 import LogItem from './LogItem';
 import Preloader from '../layout/Preloader';
-const Log = () => {
-	const [logs, setLogs] = useState([]);
-	const [loading, setLoading] = useState(false);
+import PropTypes from 'prop-types';
+import { getLogs } from '../../actions/logActions';
+
+const Logs = ({ log: { logs, loading }, getLogs }) => {
+	// mapStatetoProps log destructured to get logs and loading
 
 	useEffect(() => {
 		getLogs();
 		//eslint-disable-next-line
 	}, []);
 
-	const getLogs = async () => {
-		setLoading(true);
-		const res = await fetch('/logs');
-		const data = await res.json();
-
-		setLogs(data);
-		setLoading(false);
-	};
-
-	if (loading) {
+	if (loading || logs === null) {
 		return <Preloader />;
 	}
 
 	return (
 		<div>
-			<ul className='collection with-header'>
-				<li className='collection-header'>
-					<h4 className='center'>System Logs</h4>
+			<ul className="collection with-header">
+				<li className="collection-header">
+					<h4 className="center">System Logs</h4>
 				</li>
 				{!loading && logs.length === 0 ? (
-					<p className='center'>no logs to show...</p>
+					<p className="center">no logs to show...</p>
 				) : (
 					logs.map(log => <LogItem log={log} key={log.id} />)
 				)}
@@ -39,4 +33,22 @@ const Log = () => {
 	);
 };
 
-export default Log;
+Logs.propTypes = {
+	log: PropTypes.object.isRequired
+};
+
+// below bringing in whole state and then destructuring when passing in as props
+// it could look like :
+// const mapStateToProps = state => ({
+// 	logs: state.log.log,
+// 	loading: state.log.loading
+// });
+
+const mapStateToProps = state => ({
+	log: state.log // the name of the reducer in combineReducers (reducers/index.js)
+});
+
+export default connect(
+	mapStateToProps,
+	{ getLogs } // getLogs becomes props, actions added as second parameter
+)(Logs);
