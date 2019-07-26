@@ -1,4 +1,12 @@
 {
-  "logs": [],
+  "logs": [
+    {
+      "id": 1,
+      "message": "this has been changes",
+      "tech": "John Lennon",
+      "attention": true,
+      "date": "2019-07-26T22:48:48.129Z"
+    }
+  ],
   "techs": []
 }

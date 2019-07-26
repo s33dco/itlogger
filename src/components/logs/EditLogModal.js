@@ -1,64 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { updateLog, clearCurrent } from '../../actions/logActions';
+import PropTypes from 'prop-types';
+
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const EditLogModal = () => {
+const EditLogModal = ({ current, updateLog, clearCurrent }) => {
 	const [message, setMessage] = useState('');
 	const [attention, setAttention] = useState(false);
 	const [tech, setTech] = useState('');
+
+	useEffect(() => {
+		if (current) {
+			setMessage(current.message);
+			setAttention(current.attention);
+			setTech(current.tech);
+		}
+	}, [current]); // current is dependancy for useEffect
 
 	const onSubmit = () => {
 		if (message === '' || tech === '') {
 			M.toast({ html: ' Please enter a message and tech' });
 		} else {
-			console.log(message, tech, attention);
+			const updatedLog = {
+				id: current.id,
+				message,
+				tech,
+				attention,
+				date: new Date()
+			};
+
+			M.toast({ html: `log updated by ${tech}` });
+
+			updateLog(updatedLog);
 			// clear fields
 			setMessage('');
 			setTech('');
 			setAttention('');
+			clearCurrent();
 		}
 	};
 
 	return (
-		<div id='edit-log-modal' className='modal' style={modalStyle}>
-			<div className='modal-content'>
+		<div id="edit-log-modal" className="modal" style={modalStyle}>
+			<div className="modal-content">
 				<h4>Enter System Log</h4>
-				<div className='row'>
-					<div className='input-field'>
+				<div className="row">
+					<div className="input-field">
 						<input
-							type='text'
-							name='message'
+							type="text"
+							name="message"
 							value={message}
 							onChange={e => setMessage(e.target.value)}
 						/>
-						<label htmlFor='message' className='active'>
-							Log Message
-						</label>
 					</div>
 				</div>
-				<div className='row'>
-					<div className='input-field'>
+				<div className="row">
+					<div className="input-field">
 						<select
-							name='tech'
+							name="tech"
 							value={tech}
-							className='browser-default'
+							className="browser-default"
 							onChange={e => setTech(e.target.value)}
 						>
-							<option value='' disabled>
+							<option value="" disabled>
 								Select technician
 							</option>
-							<option value='George Harrision'>George Harrision</option>
-							<option value='John Lennon'>John Lennon</option>
-							<option value='Ringo Starr'>Ringo Starr</option>
+							<option value="George Harrision">George Harrision</option>
+							<option value="John Lennon">John Lennon</option>
+							<option value="Ringo Starr">Ringo Starr</option>
 						</select>
 					</div>
 				</div>
-				<div className='row'>
-					<div className='input-field'>
+				<div className="row">
+					<div className="input-field">
 						<p>
 							<label>
 								<input
-									type='checkbox'
-									className='filled-in'
+									type="checkbox"
+									className="filled-in"
 									checked={attention}
 									value={attention}
 									onChange={e => setAttention(!attention)}
@@ -69,8 +89,12 @@ const EditLogModal = () => {
 					</div>
 				</div>
 			</div>
-			<div className='modal-footer'>
-				<a href='#!' onClick={onSubmit} className='modal-close waves-effect blue waves-light btn'>
+			<div className="modal-footer">
+				<a
+					href="#!"
+					onClick={onSubmit}
+					className="modal-close waves-effect blue waves-light btn"
+				>
 					Enter
 				</a>
 			</div>
@@ -83,4 +107,17 @@ const modalStyle = {
 	height: '75%'
 };
 
-export default EditLogModal;
+EditLogModal.propTypes = {
+	current: PropTypes.object,
+	updateLog: PropTypes.func.isRequired,
+	clearCurrent: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+	current: state.log.current // the name of the reducer in combineReducers (reducers/index.js)
+});
+
+export default connect(
+	mapStateToProps,
+	{ updateLog, clearCurrent }
+)(EditLogModal); // null as no props from state 2nd paramter for action
