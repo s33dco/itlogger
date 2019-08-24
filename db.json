@@ -1,18 +1,11 @@
 {
   "logs": [
     {
-      "id": 1,
-      "message": "this has been changes",
-      "tech": "John Lennon",
+      "id": 3,
+      "message": "keyboard needs attention",
+      "tech": "Jurgen FruitBread",
       "attention": true,
-      "date": "2019-07-26T22:48:48.129Z"
-    },
-    {
-      "message": "zzzz",
-      "attention": false,
-      "tech": "George Harrision",
-      "date": "2019-07-26T23:20:59.205Z",
-      "id": 2
+      "date": "2019-08-24T21:09:30.118Z"
     }
   ],
   "techs": []
